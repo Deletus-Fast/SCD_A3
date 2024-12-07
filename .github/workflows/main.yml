@@ -1,0 +1,30 @@
+name: Deploy to Kubernetes
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Build Docker Images
+      run: |
+        docker build -t deletus/frontend-git:1 ./episode-01/fronted/
+        docker build -t deletus/backend-git:1 ./episode-01/backend/
+
+    - name: Push to DockerHub
+      run: |
+        docker login -u deletus -p ${{ secrets.DOCKERHUB_PASSWORD }}
+        docker push deletus/frontend-git:1
+        docker push deletus/backend-git:1
+
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f ./ep1-frontend
+        kubectl apply -f ./ep1-backend
