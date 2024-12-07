@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-git-v1
+  namespace: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-git
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: backend-git
+        version: v1
+    spec:
+      containers:
+      - name: backend-git
+        image: deletus/backend-git:1
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-git-v1-service
+  namespace: prod
+spec:
+  selector:
+    app: backend-git
+    version: v1
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: ClusterIP
