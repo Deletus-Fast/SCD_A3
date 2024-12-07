@@ -26,5 +26,5 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: |
-        kubectl apply -f ep1-frontend
-        kubectl apply -f ep1-backend
+        kubectl apply -f ep1-backend.yaml
+        kubectl apply -f ep1-backend.yaml
