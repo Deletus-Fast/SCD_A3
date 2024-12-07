@@ -24,7 +24,7 @@ jobs:
         docker push deletus/frontend-git:1
         docker push deletus/backend-git:1
 
-    - name: Deploy to Kubernetes
-      run: |
-        kubectl apply -f git-backend.yaml --validate=false
-        kubectl apply -f git-backend.yaml --validate=false
+    # - name: Deploy to Kubernetes
+    #   run: |
+    #     kubectl apply -f git-backend.yaml
+    #     kubectl apply -f git-backend.yaml
